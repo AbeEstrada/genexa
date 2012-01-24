@@ -1,3 +1,15 @@
-h1 {
-  color: #000000;
+.container {
+  margin-top: 20px;
+}
+header .row {
+  margin-bottom: 10px;
+}
+header .logo {
+  margin-bottom: 10px;
+}
+header input {
+  color: #000;
+}
+header .placeholder {
+  color: #c3bfbf;
 }

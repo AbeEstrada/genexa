@@ -1,3 +1,26 @@
-div.row
-    div.span16
-        h1= title
+form.main
+    div.row
+        header.span16
+            div.row
+                div.span4
+                    img.thumbnail.logo(src="http://placehold.it/210x105&text=Logo")
+                    input.input-file(name="logo", type="file")
+                div.span12
+                    div.row
+                        div.span12
+                            input.span12(name="institucion", placeholder="Nombre de la Institución")
+                    div.row
+                        div.span4
+                            input.span4(name="materia", placeholder="Materia")
+                        div.span4
+                            input.span4(name="periodo", placeholder="Periodo")
+                        div.span4
+                            input.span4(name="fecha", placeholder="Fecha")
+                    div.row
+                        div.span8
+                            input.span8.disabled(placeholder="Nombre del Alumno", disabled)
+                        div.span4
+                            input.span4.disabled(placeholder="Grupo", disabled)
+    div.row
+        div.span16
+            button.btn.success Agregar pregunta
