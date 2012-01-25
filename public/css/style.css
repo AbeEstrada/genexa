@@ -29,9 +29,12 @@ header .placeholder {
 .questions .row .input .danger {
   margin-left: 10px;
 }
-.questions .row .answer input {
+.questions .answer input {
   margin-left: 30px;
   margin-right: 10px;
+}
+.questions .answer:last-child {
+  margin-bottom: 0px;
 }
 .new-question {
   margin-top: 30px;

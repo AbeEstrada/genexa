@@ -10,7 +10,8 @@ $(function() {
     });
     
     $('button.add-question').on('click', function() {
-        question += 1;
+        var questions = $('.questions .question').length;
+        question = questions + 1;
         var question_type = $('select.question-type').val();
         var new_question = $('div.templates div.question-'+question_type).clone();
         $(new_question).find('label').text(question+'. ');
@@ -22,7 +23,7 @@ $(function() {
         $(this).parents('.question').remove();
         var questions = $('.questions .question');
         for (var i=1; i <= questions.length; i++) {
-            $('.questions .question:nth-child('+i+') label').text(i);
+            $('.questions .question:nth-child('+i+') label').text(i+'. ');
         };
         return false;
     });
@@ -34,13 +35,12 @@ $(function() {
         return false;
     });
     
-    $('button.create').on('click', function() {
+    /*$('button.create').on('click', function() {
+        alert('Opción no disponible aún.');
         return false;
-    });
+    });*/
     
     $('input[name=logo]').on('change', function() {
-        var img = $(this).val();
-        console.log('New Logo');
         return false;
     });
     

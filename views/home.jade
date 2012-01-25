@@ -1,54 +1,54 @@
-form.main(method="post", action=".", enctype="multipart/form-data")
+form.main(method='post', action='.', enctype='multipart/form-data')
     div.row
         header.span16
             div.row
                 div.span4
-                    img.thumbnail.logo(src="/img/logo.gif", title="Logo")
-                    input.input-file(name="logo", type="file")
+                    img.thumbnail.logo(src='/img/logo.gif', title='Logo')
+                    input.input-file(name='logo', type='file')
                 div.span12
                     div.row
-                            input.span12(name="institution", placeholder="Nombre de la Institución")
+                            input.span12(name='institution', placeholder='Nombre de la Institución')
                     div.row
-                            input.span5(name="materia", placeholder="Materia")
-                            input.span4(name="period", placeholder="Periodo")
-                            input.span3(name="date", placeholder="Fecha")
+                            input.span5(name='materia', placeholder='Materia')
+                            input.span4(name='period', placeholder='Periodo')
+                            input.span3(name='date', placeholder='Fecha')
                     div.row
-                            input.span8.disabled(placeholder="Nombre del Alumno", disabled)
-                            input.span4.disabled(placeholder="Grupo", disabled)
+                            input.span8.disabled(placeholder='Nombre del Alumno', disabled)
+                            input.span4.disabled(placeholder='Grupo', disabled)
     div.questions
     
-    div.templates(style="display:none")
+    div.templates(style='display:none')
         div.question.question-open
             div.row
                 div.span16
-                    label(for="open") 1
+                    label(for='open')
                     div.input
-                        input.span9(name="open", placeholder="Escriba aquí la pregunta")
-                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+                        input.span9(name='open', placeholder='Escriba aquí la pregunta')
+                        button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
         div.question.question-options
             div.row
                 div.span16
-                    label(for="options") 1
+                    label(for='options')
                     div.input
-                        input.span9(name="options", placeholder="Escriba aquí la pregunta")
-                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+                        input.span9(name='options', placeholder='Escriba aquí la pregunta')
+                        button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
             div.row.span16
                 div.row.answer.span16
-                    input.span9(name="answer", placeholder="Escriba aquí la opción")
-                    button.btn.small.success.new-answer(title="Agregar Respuesta") +
+                    input.span9(name='answer', placeholder='Escriba aquí la opción')
+                    button.btn.small.success.new-answer(title='Agregar Respuesta') +
         div.question.question-truefalse
             div.row
                 div.span16
-                    label(for="truefalse") 1
+                    label(for='truefalse')
                     div.input
-                        input.span9(name="truefalse", placeholder="Escriba aquí el enunciado/pregunta")
-                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+                        input.span9(name='truefalse', placeholder='Escriba aquí el enunciado/pregunta')
+                        button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
     
-    div.row.new-question(style="display:none")
+    div.row.new-question(style='display:none')
         div.span16
             select.question-type
-                option(value="open") Abierta
-                option(value="options") Opción Múltiple
-                option(value="truefalse") Verdadero - Falso
+                option(value='open') Abierta
+                option(value='options') Opción Múltiple
+                option(value='truefalse') Verdadero - Falso
             button.btn.success.add-question Agregar Pregunta
             button.btn.primary.create Generar Exámen
