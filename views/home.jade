@@ -28,17 +28,14 @@ form.main(method="post", action=".", enctype="multipart/form-data")
         div.question.question-options
             div.row
                 div.span16
-                    div.row
-                        div.span16
-                            label(for="options") 1
-                            div.input
-                                input.span9(name="options", placeholder="Escriba aquí la pregunta")
-                                button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
-                    div.row.answers
-                        div.row.span16
-                            div.answer.span9
-                                input.span9(name="answer", placeholder="Escriba aquí la opción")
-                            button.btn.small.success.new-answer(title="Agregar Respuesta") +
+                    label(for="options") 1
+                    div.input
+                        input.span9(name="options", placeholder="Escriba aquí la pregunta")
+                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+            div.row.span16
+                div.row.answer.span16
+                    input.span9(name="answer", placeholder="Escriba aquí la opción")
+                    button.btn.small.success.new-answer(title="Agregar Respuesta") +
         div.question.question-truefalse
             div.row
                 div.span16

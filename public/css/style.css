@@ -29,10 +29,7 @@ header .placeholder {
 .questions .row .input .danger {
   margin-left: 10px;
 }
-.questions .row .answers {
-  margin-top: 10px;
-}
-.questions .row .answers input {
+.questions .row .answer input {
   margin-left: 30px;
   margin-right: 10px;
 }

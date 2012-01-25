@@ -28,6 +28,9 @@ $(function() {
     });
     
     $('button.new-answer').live('click', function() {
+        var new_answer = $(this).parent().clone();
+        $(new_answer).appendTo($(this).parent().parent());
+        $(this).remove();
         return false;
     });
     
