@@ -5,14 +5,10 @@ html(lang='en')
         title Generador de Exámenes
         link(rel='stylesheet', href='/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/style.css')
-        // if lt IE 9
-            script(src='//html5shiv.googlecode.com/svn/trunk/html5.js')
-            style(type='text/css')
-                article, aside, figure, footer, header, hgroup, menu, nav, section, summary { display: block; }
+        script(src='/js/modernizr-2.0.6.js')
     body
         div.container
             != body
-        script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
-        script window.jQuery || document.write('<script src="js/libs/jquery-1.7.1.min.js"><\\/script>')
-        script(src='/js/modernizr-2.0.6.js')
+        //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+        script window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\\/script>')
         script(src='/js/script.js')

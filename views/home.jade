@@ -1,26 +1,57 @@
-form.main
+form.main(method="post", action=".", enctype="multipart/form-data")
     div.row
         header.span16
             div.row
                 div.span4
-                    img.thumbnail.logo(src="http://placehold.it/210x105&text=Logo")
+                    img.thumbnail.logo(src="/img/logo.gif", title="Logo")
                     input.input-file(name="logo", type="file")
                 div.span12
                     div.row
-                        div.span12
-                            input.span12(name="institucion", placeholder="Nombre de la Institución")
+                            input.span12(name="institution", placeholder="Nombre de la Institución")
                     div.row
-                        div.span4
-                            input.span4(name="materia", placeholder="Materia")
-                        div.span4
-                            input.span4(name="periodo", placeholder="Periodo")
-                        div.span4
-                            input.span4(name="fecha", placeholder="Fecha")
+                            input.span5(name="materia", placeholder="Materia")
+                            input.span4(name="period", placeholder="Periodo")
+                            input.span3(name="date", placeholder="Fecha")
                     div.row
-                        div.span8
                             input.span8.disabled(placeholder="Nombre del Alumno", disabled)
-                        div.span4
                             input.span4.disabled(placeholder="Grupo", disabled)
-    div.row
+    div.questions
+    
+    div.templates(style="display:none")
+        div.question.question-open
+            div.row
+                div.span16
+                    label(for="open") 1
+                    div.input
+                        input.span9(name="open", placeholder="Escriba aquí la pregunta")
+                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+        div.question.question-options
+            div.row
+                div.span16
+                    div.row
+                        div.span16
+                            label(for="options") 1
+                            div.input
+                                input.span9(name="options", placeholder="Escriba aquí la pregunta")
+                                button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+                    div.row.answers
+                        div.row.span16
+                            div.answer.span9
+                                input.span9(name="answer", placeholder="Escriba aquí la opción")
+                            button.btn.small.success.new-answer(title="Agregar Respuesta") +
+        div.question.question-truefalse
+            div.row
+                div.span16
+                    label(for="truefalse") 1
+                    div.input
+                        input.span9(name="truefalse", placeholder="Escriba aquí el enunciado/pregunta")
+                        button.btn.small.danger.remove-question(title="Eliminar Pregunta") X
+    
+    div.row.new-question(style="display:none")
         div.span16
-            button.btn.success Agregar pregunta
+            select.question-type
+                option(value="open") Abierta
+                option(value="options") Opción Múltiple
+                option(value="truefalse") Verdadero - Falso
+            button.btn.success.add-question Agregar Pregunta
+            button.btn.primary.create Generar Exámen
