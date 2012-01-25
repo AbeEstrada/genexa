@@ -1,0 +1,56 @@
+@placeholder-color: #C3BFBF;
+
+.container {
+    margin-top: 20px;
+}
+
+header {
+    .row {
+        margin-bottom: 10px
+    }
+    .logo {
+        margin-bottom: 10px;
+    }
+    input {
+        color: #000;
+    }
+    .placeholder {
+        color: @placeholder-color;
+    }
+}
+
+.questions {
+    margin-top: 15px;
+    .row {
+        margin-bottom: 15px;
+        label {
+            width: 20px;
+            text-align: left
+        }
+        .input {
+            margin-left: 30px;
+            .danger {
+                margin-left: 10px
+            }
+        }
+    }
+    .answer {
+        input {
+            margin-left: 30px;
+            margin-right: 10px;
+        }
+    }
+    .answer:last-child {
+        margin-bottom: 0px;
+    }
+}
+
+.new-question {
+    margin-top: 30px;
+    select {
+        margin-left: 30px;
+    }
+    .btn {
+        margin-left: 10px;
+    }
+}
