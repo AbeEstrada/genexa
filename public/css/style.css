@@ -13,6 +13,9 @@ header input {
 header .placeholder {
   color: #c3bfbf;
 }
+input.error {
+  border-color: #FF0000;
+}
 .questions {
   margin-top: 15px;
 }

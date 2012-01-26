@@ -37,15 +37,45 @@ $(function() {
     });
     
     $('button.create').on('click', function() {
+        var error = false;
         $(this).hide().siblings('img').show();
+        
         var data = {
-            'institution': $('input[name=institution]').val(),
-            'date': $('input[name=date]').val(),
-            'subject': $('input[name=subject]').val(),
-            'teacher': $('input[name=teacher]').val(),
-            'period': $('input[name=period]').val(),
+            //'logo': $.trim($('input[name=logo]').val()),
+            'institution': $.trim($('input[name=institution]').val()),
+            'date': $.trim($('input[name=date]').val()),
+            'subject': $.trim($('input[name=subject]').val()),
+            'teacher': $.trim($('input[name=teacher]').val()),
+            'period': $.trim($('input[name=period]').val()),
             'questions': []
         };
+        
+        if (data.institution === '') {
+            $('input[name=institution]').addClass('error');
+            error = true;
+        }
+        if (data.date === '') {
+            $('input[name=date]').addClass('error');
+            error = true;
+        }
+        if (data.subject === '') {
+            $('input[name=subject]').addClass('error');
+            error = true;
+        }
+        if (data.teacher === '') {
+            $('input[name=teacher]').addClass('error');
+            error = true;
+        }
+        if (data.period === '') {
+            $('input[name=period]').addClass('error');
+            error = true;
+        }
+        
+        if (error) {
+            $('button.create').show().siblings('img').hide();
+            return false;
+        }
+        
         var questions = $('.questions .question');
         for (var i=0; i < questions.length; i++) {
             var q = $(questions[i]);
@@ -80,7 +110,9 @@ $(function() {
             dataType: 'json',
             cache: false,
             data: data,
-            success: function(data) {
+            beforeSend: function(xhr) {
+                $('input').removeClass('error');
+            }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
                 //console.log(data);
             }

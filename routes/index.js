@@ -6,7 +6,8 @@ exports.index = function(req, res) {
 exports.create = function(req, res) {
     var d = new Date();
     console.log(d);
-    //console.log(req.body);
+    console.log(req.body);
+    
     if (req.body.questions) {
         for (var i=0; i < req.body.questions.length; i++) {
             console.log(req.body.questions[i]);
