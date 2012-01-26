@@ -30,15 +30,25 @@ $(function() {
     
     $('button.new-answer').live('click', function() {
         var new_answer = $(this).parent().clone();
+        $(new_answer).find('input').val('').attr('name', 'answer[0]');
         $(new_answer).appendTo($(this).parent().parent());
         $(this).remove();
         return false;
     });
     
-    /*$('button.create').on('click', function() {
-        alert('Opción no disponible aún.');
+    $('button.create').on('click', function() {
+        $.ajax({
+            url: '/',
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            data: $('form').serialize(),
+            success: function(data) {
+                //console.log(data);
+            }
+        });
         return false;
-    });*/
+    });
     
     $('input[name=logo]').on('change', function() {
         return false;
