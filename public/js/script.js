@@ -30,20 +30,58 @@ $(function() {
     
     $('button.new-answer').live('click', function() {
         var new_answer = $(this).parent().clone();
-        $(new_answer).find('input').val('').attr('name', 'answer[0]');
+        $(new_answer).find('input').val('');
         $(new_answer).appendTo($(this).parent().parent());
         $(this).remove();
         return false;
     });
     
     $('button.create').on('click', function() {
+        $(this).hide().siblings('img').show();
+        var data = {
+            'institution': $('input[name=institution]').val(),
+            'date': $('input[name=date]').val(),
+            'subject': $('input[name=subject]').val(),
+            'teacher': $('input[name=teacher]').val(),
+            'period': $('input[name=period]').val(),
+            'questions': []
+        };
+        var questions = $('.questions .question');
+        for (var i=0; i < questions.length; i++) {
+            var q = $(questions[i]);
+            var type = q.attr('class').replace(/question ?-?/g, '');
+            var question = q.find('input').val();
+            if ($.trim(question) !== '') {
+                switch(type) {
+                    case 'options':
+                        var answers = [];
+                        q.find('input[name=answer]').each(function(i) {
+                            var answer = $(this).val();
+                            answers.push(answer);
+                        });
+                        data.questions.push({
+                            'type': type,
+                            'question': question,
+                            'answers': answers
+                        });
+                        break;
+                    default:
+                        data.questions.push({
+                            'type': type,
+                            'question': question
+                        });
+                        break;
+                }
+            }
+        };
         $.ajax({
             url: '/',
             type: 'post',
             dataType: 'json',
             cache: false,
-            data: $('form').serialize(),
+            data: data,
             success: function(data) {
+                $('button.create').show().siblings('img').hide();
                 //console.log(data);
             }
         });

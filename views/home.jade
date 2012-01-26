@@ -25,6 +25,7 @@ form.main(method='post', action='.', enctype='multipart/form-data')
                 option(value='truefalse') Verdadero - Falso
             button.btn.success.add-question Agregar Pregunta
             button.btn.primary.create Generar Exámen
+            img(src='/img/ajax-loader.gif', style='display:none')
 div.templates(style='display:none')
     div.question.question-open
         div.row
@@ -42,7 +43,7 @@ div.templates(style='display:none')
                     button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
         div.row.span16
             div.row.answer.span16
-                input.span9(name='answer[0]', placeholder='Escriba aquí la opción')
+                input.span9(name='answer', placeholder='Escriba aquí la opción')
                 button.btn.small.success.new-answer(title='Agregar Respuesta') +
     div.question.question-truefalse
         div.row
