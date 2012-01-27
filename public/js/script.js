@@ -54,10 +54,10 @@ $(function() {
             $('input[name=institution]').addClass('error');
             error = true;
         }
-        if (data.date === '') {
+        /*if (data.date === '') {
             $('input[name=date]').addClass('error');
             error = true;
-        }
+        }*/
         if (data.subject === '') {
             $('input[name=subject]').addClass('error');
             error = true;
