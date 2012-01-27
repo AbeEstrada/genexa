@@ -27,17 +27,24 @@ exports.create = function(req, res) {
 };
 
 var create_pdf = function(data) {
-    console.log(data);
+    //console.log(data);
+    var filename = data.id;
     
     var PDFDocument = require('pdfkit');
     var doc = new PDFDocument({
         size: 'A4',
         layout: 'portrait'
     });
-    var filename = 'out';
+    
+    var header_posx = 180;
+    
     doc.font('Times-Roman').fontSize(12);
-    doc.fontSize(14).text('Hello', { align: 'center' });
-    doc.fontSize(12).text('World');
+    doc.rect(100, 72, 80, 40).stroke();
+    doc.fontSize(14).text(data.institution, { align: 'center' });
+    doc.fontSize(12).text(data.subject, { align: 'center' });
+    doc.fontSize(12).text('Maestro: '+data.teacher, { align: 'center' });
+    doc.fontSize(12).text(data.period, { align: 'center' });
+    doc.fontSize(12).text('Nombre: ____________________________________'+'     '+data.date, { align: 'center' });
     doc.write('./public/pdf/'+filename+'.pdf');
     
     return filename+'.pdf';
