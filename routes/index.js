@@ -40,7 +40,7 @@ var create_pdf = function(data) {
     doc.fontSize(12).text(data.subject, { align: 'center' });
     doc.fontSize(12).text('Maestro: '+data.teacher, { align: 'center' });
     doc.fontSize(12).text(data.period, { align: 'center' });
-    doc.fontSize(12).text('Nombre: ____________________________________'+'     '+data.date, { align: 'center' });
+    doc.fontSize(12).text('Nombre: ____________________________________ Grupo:__________'+'     '+data.date, { align: 'center' });
     doc.write('./public/pdf/'+filename+'.pdf');
     
     return filename+'.pdf';
