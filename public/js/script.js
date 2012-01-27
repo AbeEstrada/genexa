@@ -114,7 +114,7 @@ $(function() {
                 $('input').removeClass('error');
             }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
-                //console.log(data);
+                window.location = '/pdf/'+data.file;
             }
         });
         return false;

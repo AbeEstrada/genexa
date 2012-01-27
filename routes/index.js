@@ -8,8 +8,6 @@ exports.create = function(req, res) {
     var date = new Date();
     var params = req.body;
     
-    //console.log(params);
-    
     if (params.questions) {
         for (var i=0; i < params.questions.length; i++) {
             console.log(params.questions[i]);
@@ -17,13 +15,13 @@ exports.create = function(req, res) {
     }
     params.id = uniqueid.encode(date.getTime());
     
-    var pdf_file = create_pdf(params);
-    //console.log(pdf_file);
+    var file = create_pdf(params);
+    if (file)
+        params.file = file;
+    //res.download('./public/pdf/'+file);
     
     res.contentType('json');
     res.send(JSON.stringify(params));
-    
-    //res.download('public/pdf/test.pdf');
 };
 
 var create_pdf = function(data) {
@@ -35,8 +33,6 @@ var create_pdf = function(data) {
         size: 'A4',
         layout: 'portrait'
     });
-    
-    var header_posx = 180;
     
     doc.font('Times-Roman').fontSize(12);
     doc.rect(100, 72, 80, 40).stroke();
