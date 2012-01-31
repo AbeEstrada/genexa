@@ -7,12 +7,12 @@ form.main(method='post', action='.', enctype='multipart/form-data')
                     input.input-file(name='logo', type='file')
                 div.span12
                     div.row
-                            input.span9(name='institution', placeholder='Nombre de la Institución')
+                            input.span9(name='school', placeholder='Nombre de la Institución', value='#{school}')
                             input.span3(name='date', placeholder='Fecha')
                     div.row
-                            input.span4(name='subject', placeholder='Materia')
-                            input.span5(name='teacher', placeholder='Maestro')
-                            input.span3(name='period', placeholder='Periodo')
+                            input.span4(name='subject', placeholder='Asignatura', value='#{subject}')
+                            input.span5(name='teacher', placeholder='Maestro', value='#{teacher}')
+                            input.span3(name='period', placeholder='Periodo', value='#{period}')
                     div.row
                             input.span9.disabled(placeholder='Nombre del Alumno', disabled)
                             input.span3.disabled(placeholder='Grupo', disabled)

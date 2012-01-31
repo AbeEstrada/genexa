@@ -9,7 +9,14 @@ html(lang='en')
         // if lte IE 8
             script(src='/js/selectivizr-min.js')
     body
-        div.container
+        div.topbar
+            div.fill
+                div.container
+                    a.brand(href='/') Genexa
+                    ul.nav
+                        li
+                            a(href='#/ayuda') Ayuda
+        div.main.container
             != body
         //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
         script window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\\/script>')

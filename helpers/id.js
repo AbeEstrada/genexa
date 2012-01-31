@@ -24,6 +24,7 @@ exports.encode = function(id) {
     
     return r.split('').reverse().join('');
 };
+
 exports.decode = function(str) {
     if (typeof str == 'undefined') {
         return null;

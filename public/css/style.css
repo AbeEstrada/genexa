@@ -1,53 +1,14 @@
-.container {
-  margin-top: 20px;
-}
-header .row {
-  margin-bottom: 10px;
-}
-header .logo {
-  margin-bottom: 10px;
-}
-header input {
-  color: #000;
-}
-header .placeholder {
-  color: #c3bfbf;
-}
-input.error {
-  border-color: #FF0000;
-}
-.questions {
-  margin-top: 15px;
-}
-.questions .row {
-  margin-bottom: 15px;
-}
-.questions .row label {
-  width: 20px;
-  text-align: left;
-}
-.questions .row .input {
-  margin-left: 30px;
-}
-.questions .row .input .danger {
-  margin-left: 10px;
-}
-.questions .answer input {
-  margin-left: 30px;
-  margin-right: 10px;
-}
-.questions .answer:last-child {
-  margin-bottom: 0px;
-}
-.new-question {
-  margin-top: 30px;
-}
-.new-question select {
-  margin-left: 30px;
-}
-.new-question .btn {
-  margin-left: 10px;
-}
-.new-question img {
-  margin-left: 60px;
-}
+body{padding-top:40px;}
+.main{margin-top:20px;}
+header .row{margin-bottom:10px;}
+header .logo{margin-bottom:10px;}
+header input{color:#000;}
+header .placeholder{color:#c3bfbf;}
+input.error{border-color:#FF0000;}
+.questions{margin-top:15px;}.questions .row{margin-bottom:15px;}.questions .row label{width:20px;text-align:left;}
+.questions .row .input{margin-left:30px;}.questions .row .input .danger{margin-left:10px;}
+.questions .answer input{margin-left:30px;margin-right:10px;}
+.questions .answer:last-child{margin-bottom:0px;}
+.new-question{margin-top:30px;}.new-question select{margin-left:30px;}
+.new-question .btn{margin-left:10px;}
+.new-question img{margin-left:60px;}

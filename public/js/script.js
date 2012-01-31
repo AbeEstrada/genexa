@@ -1,6 +1,8 @@
 $(function() {
     var question = 0;
-    
+
+    var d = new Date();
+    $('input[name=date]').val(d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear());
     $('.new-question').removeAttr('style');
     
     $('header input, .questions input').live('keypress', function(e) {
@@ -42,7 +44,7 @@ $(function() {
         
         var data = {
             //'logo': $.trim($('input[name=logo]').val()),
-            'institution': $.trim($('input[name=institution]').val()),
+            'school': $.trim($('input[name=school]').val()),
             'date': $.trim($('input[name=date]').val()),
             'subject': $.trim($('input[name=subject]').val()),
             'teacher': $.trim($('input[name=teacher]').val()),
@@ -50,14 +52,10 @@ $(function() {
             'questions': []
         };
         
-        if (data.institution === '') {
-            $('input[name=institution]').addClass('error');
+        if (data.school === '') {
+            $('input[name=school]').addClass('error');
             error = true;
         }
-        /*if (data.date === '') {
-            $('input[name=date]').addClass('error');
-            error = true;
-        }*/
         if (data.subject === '') {
             $('input[name=subject]').addClass('error');
             error = true;
@@ -114,7 +112,7 @@ $(function() {
                 $('input').removeClass('error');
             }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
-                window.location = '/pdf/'+data.file;
+                //window.location = '/docs/'+data.file;
             }
         });
         return false;

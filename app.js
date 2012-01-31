@@ -26,8 +26,11 @@ app.configure('production', function(){
 });
 
 
+app.get('/:name', routes.doc);
 app.get('/', routes.index);
 app.post('/', routes.create);
+
+app.get('/mongo', routes.mongo);
 
 app.listen(3000);
 console.log('Listening on port %d in %s mode', app.address().port, app.settings.env);
