@@ -1,54 +1,73 @@
-form.main(method='post', action='.', enctype='multipart/form-data')
+form(method='post', action='.', enctype='multipart/form-data')
     div.row
-        header.span16
+        header.span12
             div.row
-                div.span4
+                div.span3
                     img.thumbnail.logo(src='/img/logo.gif', title='Logo')
                     input.input-file(name='logo', type='file')
-                div.span12
+                div.span8
                     div.row
-                            input.span9(name='school', placeholder='Nombre de la Institución', value='#{school}')
-                            input.span3(name='date', placeholder='Fecha')
+                            div.span6
+                                input.span6(name='school', placeholder='Nombre de la Institución', value='#{school}')
+                            div.span2
+                                input.span2(name='date', placeholder='Fecha')
                     div.row
-                            input.span4(name='subject', placeholder='Asignatura', value='#{subject}')
-                            input.span5(name='teacher', placeholder='Maestro', value='#{teacher}')
-                            input.span3(name='period', placeholder='Periodo', value='#{period}')
+                            div.span3
+                                input.span3(name='subject', placeholder='Asignatura', value='#{subject}')
+                            div.span3
+                                input.span3(name='teacher', placeholder='Maestro', value='#{teacher}')
+                            div.span2
+                                input.span2(name='period', placeholder='Periodo', value='#{period}')
                     div.row
-                            input.span9.disabled(placeholder='Nombre del Alumno', disabled)
-                            input.span3.disabled(placeholder='Grupo', disabled)
+                            div.span6
+                                input.span6.disabled(placeholder='Nombre del Alumno', disabled)
+                            div.span2
+                                input.span2.disabled(placeholder='Grupo', disabled)
     div.questions
     div.row.new-question(style='display:none')
-        div.span16
-            select.question-type
-                option(value='open') Abierta
-                option(value='options') Opción Múltiple
-                option(value='truefalse') Verdadero - Falso
-            button.btn.success.add-question Agregar Pregunta
-            button.btn.primary.create Generar Exámen
-            img(src='/img/ajax-loader.gif', style='display:none')
+        div.span12
+            div.row
+                div.span3
+                    select.question-type.span3
+                        option(value='open') Abierta
+                        option(value='options') Opción Múltiple
+                        option(value='truefalse') Verdadero - Falso
+                div.span2
+                    button.btn.btn-success.add-question Agregar Pregunta
+                div.span2
+                    button.btn.btn-primary.create Generar Exámen
+                    img(src='/img/ajax-loader.gif', style='display:none')
 div.templates(style='display:none')
     div.question.question-open
         div.row
-            div.span16
+            div.span12
                 label(for='open')
                 div.input
-                    input.span9(name='open', placeholder='Escriba aquí la pregunta')
-                    button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
+                    div.span9
+                        input.span9(name='open', placeholder='Escriba aquí la pregunta')
+                    div.span1
+                        button.btn.btn-danger.remove-question(title='Eliminar Pregunta') &times;
     div.question.question-options
         div.row
-            div.span16
+            div.span12
                 label(for='options')
                 div.input
-                    input.span9(name='options', placeholder='Escriba aquí la pregunta')
-                    button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
-        div.row.span16
-            div.row.answer.span16
-                input.span9(name='answer', placeholder='Escriba aquí la opción')
-                button.btn.small.success.new-answer(title='Agregar Respuesta') +
+                    div.span9
+                        input.span9(name='options', placeholder='Escriba aquí la pregunta')
+                    div.span1
+                        button.btn.btn-danger.remove-question(title='Eliminar Pregunta') &times;
+        div.row
+            div.answer.span12
+                div.span9
+                    input.span9(name='answer', placeholder='Escriba aquí la opción')
+                div.span1
+                    button.btn.btn-success.add-answer(title='Agregar Respuesta') +
     div.question.question-truefalse
         div.row
-            div.span16
+            div.span12
                 label(for='truefalse')
                 div.input
-                    input.span9(name='truefalse', placeholder='Escriba aquí el enunciado/pregunta')
-                    button.btn.small.danger.remove-question(title='Eliminar Pregunta') X
+                    div.span9
+                        input.span9(name='truefalse', placeholder='Escriba aquí el enunciado/pregunta')
+                    div.span1
+                        button.btn.btn-danger.remove-question(title='Eliminar Pregunta') &times;

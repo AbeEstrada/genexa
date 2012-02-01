@@ -4,13 +4,13 @@ $(function() {
     var d = new Date();
     $('input[name=date]').val(d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear());
     $('.new-question').removeAttr('style');
-    
+
     $('header input, .questions input').live('keypress', function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);
         if (code == 13)
             return false;
     });
-    
+
     $('button.add-question').on('click', function() {
         var questions = $('.questions .question').length;
         question = questions + 1;
@@ -20,28 +20,28 @@ $(function() {
         $(new_question).appendTo('div.questions');
         return false;
     });
-    
+
     $('button.remove-question').live('click', function() {
         $(this).parents('.question').remove();
         var questions = $('.questions .question');
         for (var i=1; i <= questions.length; i++) {
             $('.questions .question:nth-child('+i+') label').text(i+'. ');
-        };
+        }
         return false;
     });
-    
-    $('button.new-answer').live('click', function() {
-        var new_answer = $(this).parent().clone();
+
+    $('button.add-answer').live('click', function() {
+        var new_answer = $(this).parent().parent().clone();
         $(new_answer).find('input').val('');
-        $(new_answer).appendTo($(this).parent().parent());
+        $(new_answer).appendTo($(this).parent().parent().parent());
         $(this).remove();
         return false;
     });
-    
+
     $('button.create').on('click', function() {
         var error = false;
         $(this).hide().siblings('img').show();
-        
+
         var data = {
             //'logo': $.trim($('input[name=logo]').val()),
             'school': $.trim($('input[name=school]').val()),
@@ -51,7 +51,7 @@ $(function() {
             'period': $.trim($('input[name=period]').val()),
             'questions': []
         };
-        
+
         if (data.school === '') {
             $('input[name=school]').addClass('error');
             error = true;
@@ -68,12 +68,12 @@ $(function() {
             $('input[name=period]').addClass('error');
             error = true;
         }
-        
+
         if (error) {
             $('button.create').show().siblings('img').hide();
             return false;
         }
-        
+
         var questions = $('.questions .question');
         for (var i=0; i < questions.length; i++) {
             var q = $(questions[i]);
@@ -101,7 +101,7 @@ $(function() {
                         break;
                 }
             }
-        };
+        }
         $.ajax({
             url: '/',
             type: 'post',
@@ -117,34 +117,34 @@ $(function() {
         });
         return false;
     });
-    
+
     $('input[name=logo]').on('change', function() {
         return false;
     });
-    
+
     if (!Modernizr.input.placeholder) {
         $(this).find('[placeholder]').each(function() {
             $(this).val($(this).attr('placeholder')).addClass('placeholder');
         });
-        
+
         $('[placeholder]').focus(function() {
             if ($(this).val() == $(this).attr('placeholder')) {
                 $(this).val('');
                 $(this).removeClass('placeholder');
             }
         }).blur(function() {
-            if ($(this).val() == '' || $(this).val() == $(this).attr('placeholder')) {
+            if ($(this).val() === '' || $(this).val() == $(this).attr('placeholder')) {
                 $(this).val($(this).attr('placeholder'));
                 $(this).addClass('placeholder');
             }
         });
-        
+
         $('[placeholder]').closest('form').submit(function() {
             $(this).find('[placeholder]').each(function() {
                 if ($(this).val() == $(this).attr('placeholder')) {
                     $(this).val('');
                 }
-            })
+            });
         });
     }
 });

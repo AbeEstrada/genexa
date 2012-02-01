@@ -27,41 +27,17 @@ input.error {
     border-color: #FF0000;
 }
 
-.questions {
-    margin-top: 15px;
-    .row {
-        margin-bottom: 15px;
-        label {
-            width: 20px;
-            text-align: left
-        }
-        .input {
-            margin-left: 30px;
-            .danger {
-                margin-left: 10px
-            }
-        }
+div.question {
+    overflow: hidden;
+    label {
+        float: left;
+        width: 10px;
+        margin-top: 4px;
     }
     .answer {
-        input {
-            margin-left: 30px;
-            margin-right: 10px;
-        }
+        padding-left: 10px;
     }
-    .answer:last-child {
-        margin-bottom: 0px;
-    }
-}
-
-.new-question {
-    margin-top: 30px;
-    select {
-        margin-left: 30px;
-    }
-    .btn {
-        margin-left: 10px;
-    }
-    img {
-        margin-left: 60px;
+    .remove-question, .add-answer {
+        font-weight: bold;
     }
 }
