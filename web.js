@@ -32,5 +32,6 @@ app.post('/', routes.create);
 
 app.get('/mongo', routes.mongo);
 
-app.listen(21682);
+var port = process.env.PORT || 3000;
+app.listen(port);
 console.log('Listening on port %d in %s mode', app.address().port, app.settings.env);
