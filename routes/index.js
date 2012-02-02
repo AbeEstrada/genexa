@@ -12,7 +12,8 @@ exports.index = function(req, res) {
         subject: '',
         teacher: '',
         period: '',
-        file: ''
+        file: '',
+        questions: {}
     });
 };
 
@@ -22,7 +23,7 @@ exports.doc = function(req, res) {
     cursor.next(function(doc) {
         if (doc) {
             res.render('home', doc);
-            console.log(doc);
+            //console.log(doc);
         } else {
             res.render('home', {
                 name: '',
