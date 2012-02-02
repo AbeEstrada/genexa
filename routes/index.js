@@ -4,17 +4,25 @@ var db = mongoq('genexa');
 var now = new Date();
 var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
 
+var render = function(res, params) {
+    if (params) {
+        res.render('home', params);
+    } else {
+        res.render('home', {
+            name: '',
+            school: '',
+            date: date,
+            subject: '',
+            teacher: '',
+            period: '',
+            file: '',
+            questions: {}
+        });
+    }
+}
+
 exports.index = function(req, res) {
-    res.render('home', {
-        name: '',
-        school: '',
-        date: date,
-        subject: '',
-        teacher: '',
-        period: '',
-        file: '',
-        questions: {}
-    });
+    render(res);
 };
 
 exports.doc = function(req, res) {
@@ -22,21 +30,13 @@ exports.doc = function(req, res) {
     var cursor = docs.findOne({ name: req.params.name });
     cursor.next(function(doc) {
         if (doc) {
-            res.render('home', doc);
+            render(res, params);
             //console.log(doc);
         } else {
-            res.render('home', {
-                name: '',
-                school: '',
-                date: date,
-                subject: '',
-                teacher: '',
-                period: '',
-                file: '',
-                questions: {}
-            });
+            render(res);
         }
     }).fail(function(err) {
+        render(res);
     });
 };
 

@@ -30,8 +30,6 @@ app.get('/:name', routes.doc);
 app.get('/', routes.index);
 app.post('/', routes.create);
 
-app.get('/mongo', routes.mongo);
-
 var port = process.env.PORT || 3000;
 app.listen(port);
 console.log('Listening on port %d in %s mode', app.address().port, app.settings.env);
