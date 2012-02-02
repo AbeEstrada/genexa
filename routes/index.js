@@ -1,10 +1,14 @@
 var mongoq = require('mongoq');
 var db = mongoq('genexa');
 
+var now = new Date();
+var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
+
 exports.index = function(req, res) {
     res.render('home', {
         name: '',
         school: '',
+        date: date,
         subject: '',
         teacher: '',
         period: '',
@@ -14,20 +18,22 @@ exports.index = function(req, res) {
 
 exports.doc = function(req, res) {
     var docs = db.collection('docs');
-    var cursor = docs.find({ name: req.params.name }).limit(1);
-    cursor.each(function(err, doc) {
-        if (!err && doc) {
+    var cursor = docs.findOne({ name: req.params.name });
+    cursor.next(function(doc) {
+        if (doc) {
             res.render('home', doc);
         } else {
             res.render('home', {
                 name: '',
                 school: '',
+                date: date,
                 subject: '',
                 teacher: '',
                 period: '',
                 file: ''
             });
         }
+    }).fail(function(err) {
     });
 };
 
@@ -35,14 +41,14 @@ exports.create = function(req, res) {
     var uniqueid = require('../helpers/id.js');
     var date = new Date();
     var params = req.body;
-    
+
     /*if (params.questions) {
         for (var i=0; i < params.questions.length; i++) {
             console.log(params.questions[i]);
         };
     }*/
     params.name = uniqueid.encode(date.getTime());
-    
+
     var file = create_pdf(params);
     if (file) {
         params.file = file;
@@ -50,7 +56,7 @@ exports.create = function(req, res) {
         docs.insert(params);
     }
     //res.download('./public/docs/'+file);
-    
+
     res.contentType('json');
     res.send(JSON.stringify(params));
 };
@@ -58,7 +64,7 @@ exports.create = function(req, res) {
 var create_pdf = function(data) {
     //console.log(data);
     var filename = data.name;
-    
+
     var PDFDocument = require('pdfkit');
     var doc = new PDFDocument({
         size: 'A4',
@@ -74,6 +80,6 @@ var create_pdf = function(data) {
     doc.moveDown();
     doc.fontSize(12).text('Nombre: ____________________________________   Grupo:__________'+'     '+data.date, { align: 'center' });
     doc.write('./public/docs/'+filename+'.pdf');
-    
+
     return filename+'.pdf';
 };

@@ -1,8 +1,6 @@
 $(function() {
     var question = 0;
 
-    var d = new Date();
-    $('input[name=date]').val(d.getDate()+'/'+(d.getMonth()+1)+'/'+d.getFullYear());
     $('.new-question').removeAttr('style');
 
     $('header input, .questions input').live('keypress', function(e) {
