@@ -1,7 +1,17 @@
 $(function() {
     var question = 0;
 
-    $('.new-question').removeAttr('style');
+    if (typeof questions !== 'undefined') {
+        for (var i = 0; i < questions.length; i++) {
+            var question = i+1;
+            var new_question = $('div.templates div.question-'+questions[i].type).clone();
+            $(new_question).find('input[name='+questions[i].type+']').val(questions[i].question);
+            $(new_question).find('label').text(question+'. ');
+            $(new_question).appendTo('div.questions');
+        };
+    }
+
+    $('.questions, .new-question').removeAttr('style');
 
     $('header input, .questions input').live('keypress', function(e) {
         var code = (e.keyCode ? e.keyCode : e.which);

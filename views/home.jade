@@ -23,7 +23,7 @@ form(method='post', action='.', enctype='multipart/form-data')
                                 input.span6.disabled(placeholder='Nombre del Alumno', disabled)
                             div.span2
                                 input.span2.disabled(placeholder='Grupo', disabled)
-    div.questions
+    div.questions(style='display:none')
     div.row.new-question(style='display:none')
         div.span12
             div.row
@@ -71,3 +71,4 @@ div.templates(style='display:none')
                         input.span9(name='truefalse', placeholder='Escriba aquí el enunciado/pregunta')
                     div.span1
                         button.btn.btn-danger.remove-question(title='Eliminar Pregunta') &times;
+script var questions = !{JSON.stringify(questions)}

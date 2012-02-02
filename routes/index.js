@@ -22,6 +22,7 @@ exports.doc = function(req, res) {
     cursor.next(function(doc) {
         if (doc) {
             res.render('home', doc);
+            console.log(doc);
         } else {
             res.render('home', {
                 name: '',
@@ -30,7 +31,8 @@ exports.doc = function(req, res) {
                 subject: '',
                 teacher: '',
                 period: '',
-                file: ''
+                file: '',
+                questions: {}
             });
         }
     }).fail(function(err) {
@@ -39,15 +41,12 @@ exports.doc = function(req, res) {
 
 exports.create = function(req, res) {
     var uniqueid = require('../helpers/id.js');
-    var date = new Date();
     var params = req.body;
 
-    /*if (params.questions) {
-        for (var i=0; i < params.questions.length; i++) {
-            console.log(params.questions[i]);
-        };
-    }*/
-    params.name = uniqueid.encode(date.getTime());
+    if (params) {
+        console.log(params);
+    }
+    params.name = uniqueid.encode(now.getTime());
 
     var file = create_pdf(params);
     if (file) {
