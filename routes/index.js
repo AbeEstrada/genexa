@@ -43,8 +43,8 @@ exports.doc = function(req, res) {
             render(res);
         }
     }).fail(function(err) {
-        render(res);
-        console.log('Err: '+err);
+        res.send(err.message, 500);
+        console.log(err);
     });
 };
 
@@ -71,8 +71,6 @@ var create_pdf = function(data) {
         size: 'A4',
         layout: 'portrait',
         info: {
-            'Author': 'http://genexa.info/',
-            'Producer': 'http://genexa.info/',
             'Creator': 'http://genexa.info/'
         }
     });

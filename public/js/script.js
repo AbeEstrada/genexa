@@ -8,14 +8,15 @@ $(function() {
             $(new_question).find('input[name='+questions[i].type+']').val(questions[i].question);
             switch(questions[i].type) {
                 case 'options':
-                    var answer = $(new_question).find('.answer').parent().clone();
-                    $(new_question).find('.answer').parent().remove();
                     for (var j = 0; j < questions[i].answers.length; j++) {
-                        //console.log(questions[i].answers[j]);
-                        $(answer).find('input[name=answer]').val(questions[i].answers[j]);
-                        console.log(answer);
+                        var answer = $(new_question).find('.answer-wrapper').clone();
+                        $(answer).removeClass('answer-wrapper').find('input[name=answer]').val(questions[i].answers[j]);
+                        if ((j+1) !== questions[i].answers.length) {
+                            $(answer).find('.add-answer').remove();
+                        }
                         $(new_question).append(answer);
                     }
+                    $(new_question).find('.answer-wrapper').remove();
                     break;
             }
             $(new_question).find('label').text(question+'. ');
