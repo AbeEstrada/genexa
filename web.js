@@ -26,6 +26,7 @@ app.configure('production', function(){
 });
 
 
+app.get('/:name.:pdf', routes.doc);
 app.get('/:name', routes.doc);
 app.get('/', routes.index);
 app.post('/', routes.create);

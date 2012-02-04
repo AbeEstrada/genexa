@@ -30,13 +30,21 @@ exports.doc = function(req, res) {
     var cursor = docs.findOne({ name: req.params.name });
     cursor.next(function(doc) {
         if (doc) {
-            render(res, params);
-            //console.log(doc);
+            if (req.params.pdf === 'pdf') {
+                res.writeHead(200, {'Content-Type': 'application/pdf'});
+                res.end(create_pdf(doc),'binary');
+            } else {
+                if (!doc.questions) {
+                    doc.questions = {};
+                }
+                render(res, doc);
+            }
         } else {
             render(res);
         }
     }).fail(function(err) {
         render(res);
+        console.log('Err: '+err);
     });
 };
 
@@ -44,18 +52,11 @@ exports.create = function(req, res) {
     var uniqueid = require('../helpers/id.js');
     var params = req.body;
 
-    if (params) {
-        console.log(params);
-    }
     params.name = uniqueid.encode(now.getTime());
+    params.file = params.name+'.pdf';
 
-    var file = create_pdf(params);
-    if (file) {
-        params.file = file;
-        var docs = db.collection('docs');
-        docs.insert(params);
-    }
-    //res.download('./public/docs/'+file);
+    var docs = db.collection('docs');
+    docs.insert(params);
 
     res.contentType('json');
     res.send(JSON.stringify(params));
@@ -68,18 +69,22 @@ var create_pdf = function(data) {
     var PDFDocument = require('pdfkit');
     var doc = new PDFDocument({
         size: 'A4',
-        layout: 'portrait'
+        layout: 'portrait',
+        info: {
+            'Author': 'http://genexa.info/',
+            'Producer': 'http://genexa.info/',
+            'Creator': 'http://genexa.info/'
+        }
     });
-    //doc.registerFont('./public/fonts/Times_New_Roman.ttf', 'Times-New-Roman');
+
     doc.font('Times-Roman').fontSize(12);
     doc.rect(80, 72, 80, 52).stroke();
     doc.fontSize(14).text(data.school, { align: 'center' });
     doc.fontSize(12).text(data.subject, { align: 'center' });
-    doc.fontSize(12).text('Maestro: '+data.teacher, { align: 'center' });
+    doc.fontSize(12).text(data.teacher, { align: 'center' });
     doc.fontSize(12).text(data.period, { align: 'center' });
     doc.moveDown();
     doc.fontSize(12).text('Nombre: ____________________________________   Grupo:__________'+'     '+data.date, { align: 'center' });
-    doc.write('./public/docs/'+filename+'.pdf');
 
-    return filename+'.pdf';
+    return doc.output();
 };

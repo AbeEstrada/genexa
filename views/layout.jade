@@ -15,9 +15,7 @@ html.no-js(lang='en')
                     a.brand(href='/') Genexa
         div.main.container
             != body
-        //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
         script
-            window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\\/script>');
             var _gaq = _gaq || [];
             _gaq.push(['_setAccount', 'UA-145779-16']);
             _gaq.push(['_trackPageview']);
@@ -27,4 +25,6 @@ html.no-js(lang='en')
                 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
                 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
             })();
+        //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
+        script window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\\/script>');
         script(src='/js/script.js')
