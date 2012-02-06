@@ -1,5 +1,5 @@
 var mongoq = require('mongoq');
-var db = mongoq('genexa');
+var db = mongoq(process.env.MONGOLAB_URI || 'genexa');
 
 var now = new Date();
 var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
@@ -19,7 +19,7 @@ var render = function(res, params) {
             questions: {}
         });
     }
-}
+};
 
 exports.index = function(req, res) {
     render(res);
