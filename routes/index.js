@@ -43,7 +43,7 @@ exports.doc = function(req, res) {
             render(res);
         }
     }).fail(function(err) {
-        res.send(err.message);
+        //res.send(err.message);
         console.log('===> '+err);
     });
 };
