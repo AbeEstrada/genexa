@@ -1,6 +1,16 @@
 var express = require('express');
 var routes = require('./routes');
 
+var fs = require('fs');
+var util = require('util');
+
+var is = fs.createReadStream('./node_modules/pdfkit/node_modules/flate/build/Release/zlib_bindings.node')
+var os = fs.createWriteStream('./node_modules/pdfkit/node_modules/flate/lib/zlib_bindings.node');
+
+util.pump(is, os, function() {
+    fs.unlinkSync('./node_modules/pdfkit/node_modules/flate/build/Release/zlib_bindings.node');
+});
+
 var app = module.exports = express.createServer();
 
 app.configure(function() {
