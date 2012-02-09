@@ -3,16 +3,22 @@ html.no-js(lang='en')
     head
         meta(charset='utf-8')
         title Generador de Exámenes
-        link(rel='stylesheet', href='/css/bootstrap.css')
+        link(rel='stylesheet', href='/css/bootstrap.min.css')
         link(rel='stylesheet', href='/css/style.css')
         script(src='/js/modernizr-2.0.6.js')
         // if lte IE 8
             script(src='/js/selectivizr-min.js')
     body
+        img(src='/img/beta.png', style='position: absolute;top:0;right:0;border:0;z-index:1031', alt='BETA')
         div.navbar.navbar-fixed-top
             div.navbar-inner
                 div.container
                     a.brand(href='/') Genexa
+                    ul.nav
+                        li
+                            a(href='/') Inicio
+                        li
+                            a(href='/ayuda') Ayuda
         div.main.container
             != body
         script
@@ -27,4 +33,5 @@ html.no-js(lang='en')
             })();
         //script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js')
         script window.jQuery || document.write('<script src="js/jquery-1.7.1.min.js"><\\/script>');
+        script(src='/js/bootstrap.min.js')
         script(src='/js/script.js')

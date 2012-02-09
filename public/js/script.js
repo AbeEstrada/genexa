@@ -134,10 +134,24 @@ $(function() {
                 $('input').removeClass('error');
             }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
-                window.location = data.file;
+                if (data.file) {
+                    $('.newdoc input').val('http://'+data.url+'/'+data.name);
+                    $('.newdoc a.btn-primary').attr('href', 'http://'+data.url+'/'+data.file);
+                    $('.newdoc').modal({ backdrop: true });
+                }
             }
         });
         return false;
+    });
+
+    $('.close-modal').click(function() {
+        $('.newdoc').modal('hide');
+        return false;
+    });
+
+    $('.newdoc').on('hidden', function () {
+        $('.newdoc input').val('');
+        $('.newdoc a.btn-primary').attr('href', '#');
     });
 
     $('input[name=logo]').on('change', function() {

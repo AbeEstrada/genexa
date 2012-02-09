@@ -1,10 +1,14 @@
 var mongoq = require('mongoq');
 var db = mongoq(process.env.MONGOLAB_URI || 'genexa');
 
-var now = new Date();
-var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
+exports.help = function(req, res) {
+    res.render('help');
+};
 
 var render = function(res, params) {
+    var now = new Date();
+    var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();
+
     if (params) {
         res.render('home', params);
     } else {
@@ -31,7 +35,7 @@ exports.doc = function(req, res) {
     cursor.next(function(doc) {
         if (doc) {
             if (req.params.pdf === 'pdf') {
-                res.writeHead(200, {'Content-Type': 'application/pdf'});
+                res.contentType('application/pdf');
                 res.end(create_pdf(doc),'binary');
             } else {
                 if (!doc.questions) {
@@ -43,27 +47,31 @@ exports.doc = function(req, res) {
             render(res);
         }
     }).fail(function(err) {
-        //res.send(err.message);
-        console.log('===> '+err);
+        res.contentType('text/html');
+        res.send(err.message);
+        console.dir(err);
     });
 };
 
 exports.create = function(req, res) {
     var uniqueid = require('../helpers/id.js');
     var params = req.body;
+    var now = new Date();
 
     params.name = uniqueid.encode(now.getTime());
     params.file = params.name+'.pdf';
+    params.url = req.headers.host;
 
     var docs = db.collection('docs');
-    docs.insert(params);
+    docs.insert(params).fail(function(err) {
+        delete params.file;
+        console.log(params);
+    });
 
-    res.contentType('json');
-    res.send(JSON.stringify(params));
+    res.json(params);
 };
 
 var create_pdf = function(data) {
-    //console.log(data);
     var filename = data.name;
     var fontSize = 12;
 

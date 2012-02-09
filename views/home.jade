@@ -37,6 +37,17 @@ form(method='post', action='.', enctype='multipart/form-data')
                 div.span2
                     button.btn.btn-primary.create Generar Exámen
                     img(src='/img/ajax-loader.gif', style='display:none')
+div.newdoc(style='display:none')
+    div.modal
+        div.modal-header
+            a.close(data-dismiss='modal') &times;
+            h3 Se ha generado su exámen...
+        div.modal-body
+            p Puede volver a editar su documento desde la siguiente dirección:
+            input.span6(type='text', value='')
+        div.modal-footer
+            a.btn.btn-primary(href='#', target='_blank') Descargar PDF
+            a.btn.close-modal(href='#') Cerrar
 div.templates(style='display:none')
     div.question.question-open
         div.row
