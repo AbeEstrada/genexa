@@ -84,7 +84,7 @@ var create_pdf = function(data) {
         }
     });
 
-    doc.font('Times-Roman').fontSize(12);
+    doc.font('./public/fonts/Times-New-Roman.ttf').fontSize(12);
     doc.rect(80, 72, 80, 52).stroke();
     doc.fontSize(14).text(data.school, { align: 'center' });
     doc.fontSize(fontSize).text(data.subject, { align: 'center' });

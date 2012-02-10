@@ -1,8 +1,8 @@
 Requirements
 ---------------
 
-- node.js 6.x
-- mongodb 2.x
+    node.js 6.x
+    mongodb 2.x
 
 How to run
 ---------------
@@ -12,5 +12,3 @@ How to run
     npm install
     mongod run
     node app.js
-
-Now open your browser [http://127.0.0.1:3000](http://127.0.0.1:3000)
