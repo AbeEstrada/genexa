@@ -3,8 +3,7 @@ form(method='post', action='.', enctype='multipart/form-data')
         header.span12
             div.row
                 div.span3
-                    img.thumbnail.logo(src='/img/logo.gif', title='Logo')
-                    input.input-file(name='logo', type='file')
+                    iframe#upload(name='upload', src='/upload', frameborder='0', scrolling='no')
                 div.span8
                     div.row
                             div.span6

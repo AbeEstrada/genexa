@@ -5,6 +5,10 @@ exports.help = function(req, res) {
     res.render('help');
 };
 
+exports.upload = function(req, res) {
+    res.render('upload', { layout: false });
+};
+
 var render = function(res, params) {
     var now = new Date();
     var date = now.getDate()+'/'+(now.getMonth()+1)+'/'+now.getFullYear();

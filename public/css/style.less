@@ -1,26 +1,29 @@
 @placeholder-color: #C3BFBF;
 
-body {
-    padding-top: 40px;
-}
-
 .main {
     margin-top: 20px;
 }
-.navbar .brand {
-    padding-right: 0;
-    padding-left: 0;
-    margin-left: 20px;
-    margin-right: 85px;
-    float: right;
-    font-weight: bold;
-    color: #000;
-    text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
-    -webkit-transition: all .2s linear;
-       -moz-transition: all .2s linear;
-            transition: all .2s linear;
-    &:hover {
-        text-shadow: 0 1px 0 rgba(255,255,255,.15), 0 0 30px rgba(255,255,255,.250);
+.navbar {
+    .navbar-inner {
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+    .brand {
+        padding-right: 0;
+        padding-left: 0;
+        margin-left: 20px;
+        margin-right: 85px;
+        float: right;
+        font-weight: bold;
+        color: #000;
+        text-shadow: 0 1px 0 rgba(255,255,255,.1), 0 0 30px rgba(255,255,255,.125);
+        -webkit-transition: all .2s linear;
+           -moz-transition: all .2s linear;
+                transition: all .2s linear;
+        &:hover {
+            text-shadow: 0 1px 0 rgba(255,255,255,.15), 0 0 30px rgba(255,255,255,.250);
+        }
     }
 }
 
@@ -41,6 +44,12 @@ header {
 
 input.error {
     border-color: #FF0000;
+}
+
+iframe#upload {
+    border: 0px;
+    width: 220px;
+    height: 160px;
 }
 
 div.question {
