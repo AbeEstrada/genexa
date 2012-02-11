@@ -160,7 +160,9 @@ $(function() {
 
     if (!Modernizr.input.placeholder) {
         $(this).find('[placeholder]').each(function() {
-            $(this).val($(this).attr('placeholder')).addClass('placeholder');
+            if ($(this).val() === '') {
+                $(this).val($(this).attr('placeholder')).addClass('placeholder');
+            }
         });
 
         $('[placeholder]').focus(function() {
