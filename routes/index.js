@@ -165,34 +165,5 @@ var create_pdf = function(data) {
         }
     }
 
-    if (data.logo) {
-        var fs = require('fs');
-        var knox = require('knox');
-        var knox_settings = {};
-        if (process.env.AWS_KEY && process.env.AWS_SECRET && process.env.AWS_S3_BUCKET) {
-            knox_settings.key = process.env.AWS_KEY;
-            knox_settings.secret = process.env.AWS_SECRET;
-            knox_settings.bucket = process.env.AWS_S3_BUCKET;
-        } else {
-            knox_settings = require('../knox_settings.js').settings;
-        }
-        var client = knox.createClient(knox_settings);
-        var file = data.logo.replace('http://genexa.s3.amazonaws.com', '');
-        client.get(file).on('response', function(s3res) {
-            if (s3res.statusCode === 200) {
-                var logo = fs.createWriteStream(file.replace('/logos', './tmp'), { flags: 'w+', encoding: 'binary' });
-                var data = '';
-                s3res.setEncoding('binary');
-                s3res.on('data', function(chunk) {
-                    data += chunk;
-                }).on('end', function() {
-                    logo.write(data, 'binary');
-                    //fs.unlinkSync(file.replace('/logos', './tmp');
-                });
-            }
-        }).end();
-        doc.image(file.replace('/logos', './tmp'), 80, 72, { width: 90, height: 52 });
-    }
-
     return doc.output();
 };
