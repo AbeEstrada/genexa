@@ -180,18 +180,18 @@ var create_pdf = function(data) {
         var file = data.logo.replace('http://genexa.s3.amazonaws.com', '');
         client.get(file).on('response', function(s3res) {
             if (s3res.statusCode === 200) {
-                var logo = fs.createWriteStream('./public'+file, { flags: 'w+', encoding: 'binary' });
+                var logo = fs.createWriteStream(file.replace('/logos', './tmp'), { flags: 'w+', encoding: 'binary' });
                 var data = '';
                 s3res.setEncoding('binary');
                 s3res.on('data', function(chunk) {
                     data += chunk;
                 }).on('end', function() {
                     logo.write(data, 'binary');
-                    fs.unlinkSync('./public'+file);
+                    //fs.unlinkSync(file.replace('/logos', './tmp');
                 });
             }
         }).end();
-        doc.image('./public'+file, 80, 72, { width: 90, height: 52 });
+        doc.image(file.replace('/logos', './tmp'), 80, 72, { width: 90, height: 52 });
     }
 
     return doc.output();
