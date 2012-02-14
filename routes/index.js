@@ -32,8 +32,8 @@ exports.upload_post = function(req, res) {
                 'Content-Length': buf.length,
                 'Content-Type': file.type
             });
-            req.on('response', function(res3) {
-                if (res3.statusCode === 200) {
+            req.on('response', function(s3res) {
+                if (s3res.statusCode === 200) {
                     //console.log('saved to %s', req.url);
                     data.image = req.url;
                     res.render('upload', { layout: false, data: data });
@@ -131,7 +131,6 @@ var create_pdf = function(data) {
 
     doc.font('./public/fonts/Times-New-Roman.ttf').fontSize(12);
     doc.image('./public/img/watermark.png', 90, 50);
-    doc.rect(80, 72, 80, 52).stroke();
     doc.fontSize(14).text(data.school, { align: 'center' });
     doc.fontSize(fontSize).text(data.subject, { align: 'center' });
     doc.fontSize(fontSize).text(data.teacher, { align: 'center' });
@@ -164,6 +163,35 @@ var create_pdf = function(data) {
                     break;
             }
         }
+    }
+
+    if (data.logo) {
+        var fs = require('fs');
+        var knox = require('knox');
+        var knox_settings = {};
+        if (process.env.AWS_KEY && process.env.AWS_SECRET && process.env.AWS_S3_BUCKET) {
+            knox_settings.key = process.env.AWS_KEY;
+            knox_settings.secret = process.env.AWS_SECRET;
+            knox_settings.bucket = process.env.AWS_S3_BUCKET;
+        } else {
+            knox_settings = require('../knox_settings.js').settings;
+        }
+        var client = knox.createClient(knox_settings);
+        var file = data.logo.replace('http://genexa.s3.amazonaws.com', '');
+        client.get(file).on('response', function(s3res) {
+            if (s3res.statusCode === 200) {
+                var logo = fs.createWriteStream('./public'+file, { flags: 'w+', encoding: 'binary' });
+                var data = '';
+                s3res.setEncoding('binary');
+                s3res.on('data', function(chunk) {
+                    data += chunk;
+                }).on('end', function() {
+                    logo.write(data, 'binary');
+                    fs.unlinkSync('./public'+file);
+                });
+            }
+        }).end();
+        doc.image('./public'+file, 80, 72, { width: 90, height: 52 });
     }
 
     return doc.output();
