@@ -5,3 +5,4 @@
 node_modules
 public/docs/*
 .nodemonignore
+knox_settings.js

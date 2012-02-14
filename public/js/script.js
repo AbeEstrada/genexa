@@ -1,6 +1,9 @@
 $(function() {
     var question = 0;
 
+    if (image_logo !== '') {
+        $('img.logo', frames['upload'].document).attr('src', image_logo);
+    }
     if (typeof questions !== 'undefined' && questions.length > 0) {
         for (var i = 0; i < questions.length; i++) {
             question = i+1;
@@ -65,7 +68,6 @@ $(function() {
         $(this).hide().siblings('img').show();
 
         var data = {
-            //'logo': $.trim($('input[name=logo]').val()),
             'school': $.trim($('input[name=school]').val()),
             'date': $.trim($('input[name=date]').val()),
             'subject': $.trim($('input[name=subject]').val()),
@@ -73,6 +75,9 @@ $(function() {
             'period': $.trim($('input[name=period]').val()),
             'questions': []
         };
+        if (logo.image !== '') {
+            data.logo = logo.image;
+        }
 
         if (data.school === '') {
             $('input[name=school]').addClass('error');
@@ -154,8 +159,21 @@ $(function() {
         $('.newdoc a.btn-primary').attr('href', '#');
     });
 
-    $('input[name=logo]').on('change', function() {
-        return false;
+    var logo = {};
+    $('iframe.upload').load(function() {
+        var data = $('iframe.upload').get(0).contentWindow.data;
+        if (data) {
+            logo.image = data.image;
+            if ($('img.logo', frames['upload'].document).attr('src') === '') {
+                $('img.logo', frames['upload'].document).attr('src', logo.image);
+            }
+        }
+
+        $('input[name=logo]', frames['upload'].document).on('change', function() {
+            $(this).hide();
+            $('img.loader', frames['upload'].document).show();
+            $('form', frames['upload'].document).submit();
+        });
     });
 
     if (!Modernizr.input.placeholder) {

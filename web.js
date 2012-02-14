@@ -32,7 +32,8 @@ app.configure('production', function() {
 
 
 app.get('/ayuda', routes.help);
-app.get('/upload', routes.upload);
+app.get('/upload', routes.upload_get);
+app.post('/upload', routes.upload_post);
 
 app.get('/:name.:pdf', routes.doc);
 app.get('/:name', routes.doc);

@@ -6,7 +6,8 @@
         "express": "2.5.5",
         "jade": ">= 0.0.1",
         "pdfkit": "0.1.6",
-        "mongoq": "0.2.3"
+        "mongoq": "0.2.3",
+        "knox": "0.0.9"
     },
     "engines": {
         "node": "0.6.x",

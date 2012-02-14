@@ -1,12 +1,12 @@
 .main{margin-top:20px;}
 .navbar .navbar-inner{-webkit-border-radius:0px;-moz-border-radius:0px;border-radius:0px;}
-.navbar .brand{padding-right:0;padding-left:0;margin-left:20px;margin-right:85px;float:right;font-weight:bold;color:#000;text-shadow:0 1px 0 rgba(255, 255, 255, 0.1),0 0 30px rgba(255, 255, 255, 0.125);-webkit-transition:all .2s linear;-moz-transition:all .2s linear;transition:all .2s linear;}.navbar .brand:hover{text-shadow:0 1px 0 rgba(255, 255, 255, 0.15),0 0 30px rgba(255, 255, 255, 0.25);}
+.navbar .brand{margin-right:15px;margin-left:0px;padding-right:0;padding-left:0;font-weight:bold;color:#000;text-shadow:0 1px 0 rgba(255, 255, 255, 0.15),0 0 30px rgba(255, 255, 255, 0.25);-webkit-transition:all .2s linear;-moz-transition:all .2s linear;transition:all .2s linear;}.navbar .brand:hover{text-shadow:0 1px 0 rgba(255, 255, 255, 0.1),0 0 30px rgba(255, 255, 255, 0.125);}
 header .row{margin-bottom:10px;}
 header .logo{margin-bottom:10px;}
 header input{color:#000;}
 header .placeholder{color:#c3bfbf;}
 input.error{border-color:#FF0000;}
-iframe#upload{border:0px;width:220px;height:160px;}
+iframe.upload{border:0px;width:220px;height:160px;}
 div.question{overflow:hidden;}div.question label{float:left;width:10px;margin-top:4px;}
 div.question .answer{padding-left:10px;}
 div.question .remove-question,div.question .add-answer{font-weight:bold;}
