@@ -96,7 +96,6 @@ exports.doc = function(req, res) {
     }).fail(function(err) {
         res.contentType('text/html');
         res.send(err.message);
-        //console.dir(err);
     });
 };
 
@@ -136,7 +135,6 @@ exports.create = function(req, res) {
     var docs = db.collection('docs');
     docs.insert(params).fail(function(err) {
         delete params.file;
-        //console.log(params);
     });
 
     res.json(params);
@@ -193,9 +191,9 @@ var create_pdf = function(data) {
         }
     }
 
-    if (!data.image) {
+    if (data.image) {
         //doc.image(data.image, 80, 72, { width: 90, height: 52 });
-        //fs.unlink(file_local);
+        //fs.unlink(data.image);
     }
 
     return doc.output();
@@ -204,7 +202,6 @@ var create_pdf = function(data) {
 exports.feedback = function(req, res) {
     var params = req.body;
     var docs = db.collection('feedback');
-    console.dir(params);
     docs.insert(params).fail(function(err) {
         if (err) throw err;
     });
