@@ -31,6 +31,7 @@ app.configure('production', function() {
 });
 
 
+app.post('/feedback', routes.feedback);
 app.get('/ayuda', routes.help);
 app.get('/upload', routes.upload_get);
 app.post('/upload', routes.upload_post);

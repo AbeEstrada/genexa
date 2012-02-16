@@ -79,22 +79,10 @@ $(function() {
             data.logo = logo.image;
         }
 
-        if (data.school === '') {
-            $('input[name=school]').addClass('error');
-            error = true;
-        }
-        if (data.subject === '') {
-            $('input[name=subject]').addClass('error');
-            error = true;
-        }
-        if (data.teacher === '') {
-            $('input[name=teacher]').addClass('error');
-            error = true;
-        }
-        if (data.period === '') {
-            $('input[name=period]').addClass('error');
-            error = true;
-        }
+        if (data.school === '') { $('input[name=school]').addClass('error'); error = true; }
+        if (data.subject === '') { $('input[name=subject]').addClass('error'); error = true; }
+        if (data.teacher === '') { $('input[name=teacher]').addClass('error'); error = true; }
+        if (data.period === '') { $('input[name=period]').addClass('error'); error = true; }
 
         if (error) {
             $('button.create').show().siblings('img').hide();
@@ -140,12 +128,69 @@ $(function() {
             }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
                 if (data.file) {
-                    $('.newdoc input').val('http://'+data.url+'/'+data.name);
+                    $('.newdoc input[name=doc]').val(data.name);
+                    $('.newdoc input.link').val('http://'+data.url+'/'+data.name);
                     $('.newdoc a.btn-primary').attr('href', 'http://'+data.url+'/'+data.file);
-                    $('.newdoc').modal({ backdrop: true });
+                    $('.newdoc').modal({
+                        keyboard: false,
+                        backdrop: true
+                    });
                 }
             }
         });
+        return false;
+    });
+
+    $('.newdoc a.feedback').on('click', function() {
+        $('.newdoc a.feedback').hide();
+        var error = false;
+        var data = {
+            'doc': $.trim($('form.feedback input[name=doc]').val()),
+            'age': $.trim($('form.feedback select[name=age]').val()),
+            'gender': $.trim($('form.feedback select[name=gender]').val()),
+            'level': $.trim($('form.feedback select[name=level]').val()),
+            'activity': $.trim($('form.feedback select[name=activity]').val()),
+            'needs': $.trim($('form.feedback select[name=needs]').val()),
+            'frequency': $.trim($('form.feedback select[name=frequency]').val()),
+            'use': $.trim($('form.feedback select[name=use]').val()),
+            'easy': $.trim($('form.feedback select[name=easy]').val())
+        };
+        if (data.age === '') { $('form.feedback select[name=age]').addClass('error'); error = true; }
+        if (data.gender === '') { $('form.feedback select[name=gender]').addClass('error'); error = true; }
+        if (data.level === '') { $('form.feedback select[name=level]').addClass('error'); error = true; }
+        if (data.activity === '') { $('form.feedback select[name=activity]').addClass('error'); error = true; }
+        if (data.needs === '') { $('form.feedback select[name=needs]').addClass('error'); error = true; }
+        if (data.frequency === '') { $('form.feedback select[name=frequency]').addClass('error'); error = true; }
+        if (data.use === '') { $('form.feedback select[name=use]').addClass('error'); error = true; }
+        if (data.easy === '') { $('form.feedback select[name=easy]').addClass('error'); error = true; }
+        //console.log(data);
+        if (error) {
+            $('.newdoc a.feedback').show();
+            return false;
+        }
+        $.ajax({
+            url: '/feedback',
+            type: 'post',
+            dataType: 'json',
+            cache: false,
+            data: data,
+            success: function(data) {
+                console.log(data);
+                if (data.success) {
+                    $('form.feedback select').removeClass('error').addClass('disabled').attr('disabled', 'disabled');
+                    $('.newdoc a.btn-primary').removeClass('disabled');
+                } else {
+                    $('.newdoc a.feedback').show();
+                }
+            }
+        });
+        return false;
+    });
+
+    $('.newdoc a.btn-primary').on('click', function() {
+        if (!$(this).hasClass('disabled')) {
+            return true;
+        }
         return false;
     });
 
@@ -155,7 +200,7 @@ $(function() {
     });
 
     $('.newdoc').on('hidden', function () {
-        $('.newdoc input').val('');
+        $('.newdoc input.link').val('');
         $('.newdoc a.btn-primary').attr('href', '#');
     });
 

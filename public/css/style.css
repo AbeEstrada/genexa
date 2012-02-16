@@ -5,8 +5,9 @@ header .row{margin-bottom:10px;}
 header .logo{margin-bottom:10px;}
 header input{color:#000;}
 header .placeholder{color:#c3bfbf;}
-input.error{border-color:#FF0000;}
+input.error,select.error{border-color:#FF0000;}
 iframe.upload{border:0px;width:220px;height:160px;}
 div.question{overflow:hidden;}div.question label{float:left;width:10px;margin-top:4px;}
 div.question .answer{padding-left:10px;}
 div.question .remove-question,div.question .add-answer{font-weight:bold;}
+div.modal{max-height:570px;}

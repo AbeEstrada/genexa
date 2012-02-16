@@ -39,14 +39,81 @@ form(action='.', method='post')
 div.newdoc(style='display:none')
     div.modal
         div.modal-header
-            a.close(data-dismiss='modal') &times;
+            //a.close(data-dismiss='modal') &times;
             h3 Se ha generado su exámen...
         div.modal-body
             p Puede volver a editar su documento desde la siguiente dirección:
-            input.span6(type='text', value='')
+            input.link.span6(type='text', value='')
+            div.alert.alert-error Por favor ayudanos contestando la encuesta para poder descagar el archivo PDF.
+            form.feedback.well(action='/feedback', method='post')
+                input(type='hidden', name='doc', value='')
+                div.row
+                    div.span3
+                        label Edad
+                        select(name='age')
+                            option(value='') Seleccione una opción
+                            option(value='10') 0-10
+                            option(value='20') 11-20
+                            option(value='30') 21-30
+                            option(value='40') 31-40
+                            option(value='50') 41-50
+                            option(value='60') 61-99
+                    div.span3
+                        label Sexo
+                        select(name='gender')
+                            option(value='') Seleccione una opción
+                            option(value='male') Masculino
+                            option(value='female') Femenino
+                div.row
+                    div.span3
+                        label Nivel Académico
+                        select(name='level')
+                            option(value='') Seleccione una opción
+                            option(value='elementary') Primaria
+                            option(value='middle') Secundaria
+                            option(value='high') Preparatoria
+                            option(value='college') Universidad
+                            option(value='graduate') Posgrado
+                    div.span3
+                        label Actividad Principal
+                        select(name='activity')
+                            option(value='') Seleccione una opción
+                            option(value='student') Estudiante
+                            option(value='teacher') Profesor
+                            option(value='other') Otro
+                div.row
+                    div.span3
+                        label ¿Necésita realizar exámenes?
+                        select(name='needs')
+                            option(value='') Seleccione una opción
+                            option(value='yes') Si
+                            option(value='no') No
+                    div.span3
+                        label ¿Con qué frecuencia?
+                        select(name='frequency')
+                            option(value='') Seleccione una opción
+                            option(value='never') Ninguna
+                            option(value='sometimes') A veces
+                            option(value='often') Muy seguido
+                            option(value='always') Siempre
+                div.row
+                    div.span3
+                        label ¿Utilizaría este sistema?
+                        select(name='use')
+                            option(value='') Seleccione una opción
+                            option(value='yes') Si
+                            option(value='no') No
+                    div.span3
+                        label ¿Le parecío sencillo de utilizar?
+                        select(name='easy')
+                            option(value='') Seleccione una opción
+                            option(value='yes') Si
+                            option(value='no') No
+                            option(value='complicated') Complicado
         div.modal-footer
-            a.btn.btn-primary(href='#', target='_blank') Descargar PDF
-            a.btn.close-modal(href='#') Cerrar
+            a.disabled.btn.btn-primary(href='#', target='_blank') Descargar PDF
+            a.feedback.btn(href='#') Enviar encuesta
+            //a.btn.close-modal(href='#') Cerrar
 div.templates(style='display:none')
     div.question.question-open
         div.row

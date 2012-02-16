@@ -12,6 +12,7 @@ exports.upload_get = function(req, res) {
 
 exports.upload_post = function(req, res) {
     var fs = require('fs');
+    var path = require('path');
     var crypto = require('crypto');
     var knox = require('knox');
     var data = {};
@@ -27,14 +28,13 @@ exports.upload_post = function(req, res) {
         }
         var client = knox.createClient(knox_settings);
         fs.readFile(file.path, function(err, buf) {
-            var filename = crypto.createHash('md5').update((new Date()).getTime()+file.name).digest('hex')+'.'+(file.name.substring(file.name.length, file.name.length-3));
+            var filename = crypto.createHash('md5').update((new Date()).getTime()+file.name).digest('hex')+'.'+(path.extname(file.name));
             var req = client.put('/logos/'+filename, {
                 'Content-Length': buf.length,
                 'Content-Type': file.type
             });
             req.on('response', function(s3res) {
                 if (s3res.statusCode === 200) {
-                    //console.log('saved to %s', req.url);
                     data.image = req.url;
                     res.render('upload', { layout: false, data: data });
                 }
@@ -75,13 +75,15 @@ exports.index = function(req, res) {
 };
 
 exports.doc = function(req, res) {
+    var path = require('path');
     var docs = db.collection('docs');
     var cursor = docs.findOne({ name: req.params.name });
     cursor.next(function(doc) {
         if (doc) {
             if (req.params.pdf === 'pdf') {
+                //doc.image = get_logo(doc.logo);
                 res.contentType('application/pdf');
-                res.end(create_pdf(doc),'binary');
+                res.end(create_pdf(doc), 'binary');
             } else {
                 if (!doc.questions) {
                     doc.questions = {};
@@ -96,6 +98,30 @@ exports.doc = function(req, res) {
         res.send(err.message);
         //console.dir(err);
     });
+};
+
+var get_logo = function(logo_url) {
+    var fs = require('fs');
+    var http = require('http');
+    var file_ext = logo_url.replace('http://genexa.s3.amazonaws.com', '');
+    var file_local = file_ext.replace('/logos', './tmp');
+    var hreq = http.get({
+        host: 'genexa.s3.amazonaws.com',
+        port: 80,
+        path: file_ext
+    }, function(hres) {
+        var imagedata = '';
+        hres.setEncoding('binary');
+        hres.on('data', function(chunk) {
+            imagedata += chunk;
+        });
+        hres.on('end', function() {
+            fs.writeFile(file_local, imagedata, 'binary', function(err) {
+                if (err) throw err;
+            });
+        });
+    });
+    return file_local;
 };
 
 exports.create = function(req, res) {
@@ -138,6 +164,8 @@ var create_pdf = function(data) {
     doc.moveDown();
     doc.fontSize(fontSize).text('Nombre: ____________________________________   Grupo:__________'+'     '+data.date, { align: 'center' });
     doc.moveDown();
+    doc.font('./public/fonts/Times-New-Roman-Bold.ttf').fontSize(fontSize).text('Instrucciones: Contesta según se pide.', { align: 'left' });
+    doc.font('./public/fonts/Times-New-Roman.ttf');
     if (data.questions) {
         for (var i = 0 ; i < data.questions.length; i++) {
             var q = data.questions[i];
@@ -165,5 +193,23 @@ var create_pdf = function(data) {
         }
     }
 
+    if (!data.image) {
+        //doc.image(data.image, 80, 72, { width: 90, height: 52 });
+        //fs.unlink(file_local);
+    }
+
     return doc.output();
+};
+
+exports.feedback = function(req, res) {
+    var params = req.body;
+    var docs = db.collection('feedback');
+    console.dir(params);
+    docs.insert(params).fail(function(err) {
+        if (err) throw err;
+    });
+    var data = {
+        success: true
+    };
+    res.json(data);
 };
