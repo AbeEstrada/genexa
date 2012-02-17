@@ -142,7 +142,9 @@ $(function() {
     });
 
     $('.newdoc a.feedback').on('click', function() {
+        $('form.feedback select').removeClass('error');
         $('.newdoc a.feedback').hide();
+        $('.newdoc img.loader').show();
         var error = false;
         var data = {
             'doc': $.trim($('form.feedback input[name=doc]').val()),
@@ -166,6 +168,7 @@ $(function() {
         //console.log(data);
         if (error) {
             $('.newdoc a.feedback').show();
+            $('.newdoc img.loader').hide();
             return false;
         }
         $.ajax({
@@ -179,8 +182,10 @@ $(function() {
                 if (data.success) {
                     $('form.feedback select').removeClass('error').addClass('disabled').attr('disabled', 'disabled');
                     $('.newdoc a.btn-primary').removeClass('disabled');
+                    $('.newdoc img.loader').hide();
                 } else {
                     $('.newdoc a.feedback').show();
+                    $('.newdoc img.loader').hide();
                 }
             }
         });
@@ -195,6 +200,10 @@ $(function() {
     });
 
     $('.close-modal').click(function() {
+        $('form.feedback select').removeClass('error').removeClass('disabled').removeAttr('disabled');
+        $('.newdoc a.btn-primary').addClass('disabled');
+        $('.newdoc a.feedback').show();
+        $('.newdoc img.loader').hide();
         $('.newdoc').modal('hide');
         return false;
     });
