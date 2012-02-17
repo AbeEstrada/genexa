@@ -1,6 +1,6 @@
 {
     "name": "genexa",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "private": true,
     "dependencies": {
         "express": "2.5.5",
@@ -10,7 +10,7 @@
         "knox": "0.0.9"
     },
     "engines": {
-        "node": "0.6.x",
-        "npm": "1.0.x"
+        "node": ">= 0.6.0",
+        "npm": ">= 1.0.0"
     }
 }
