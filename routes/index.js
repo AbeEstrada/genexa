@@ -201,6 +201,7 @@ var create_pdf = function(data) {
 
 exports.feedback = function(req, res) {
     var params = req.body;
+    params.date = (new Date()).getTime();
     var docs = db.collection('feedback');
     docs.insert(params).fail(function(err) {
         if (err) throw err;
