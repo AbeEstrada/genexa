@@ -1,41 +1,43 @@
+var http = require('http');
+var fs = require('fs');
+var path = require('path');
+var crypto = require('crypto');
 var mongoq = require('mongoq');
 var db = mongoq(process.env.MONGOLAB_URI || 'genexa');
+var knox = require('knox');
+var knox_settings = {};
+if (process.env.AWS_KEY && process.env.AWS_SECRET && process.env.AWS_S3_BUCKET) {
+    knox_settings.key = process.env.AWS_KEY;
+    knox_settings.secret = process.env.AWS_SECRET;
+    knox_settings.bucket = process.env.AWS_S3_BUCKET;
+} else {
+    knox_settings = require('../knox_settings.js').settings;
+}
 
 exports.help = function(req, res) {
     res.render('help');
 };
 
 exports.upload_get = function(req, res) {
-    var data = { image: 'http://dummyimage.com/210x112/000/fff' };
+    var data = { url: 'http://dummyimage.com/210x112/000/fff' };
     res.render('upload', { layout: false, data: data });
 };
 
 exports.upload_post = function(req, res) {
-    var fs = require('fs');
-    var path = require('path');
-    var crypto = require('crypto');
-    var knox = require('knox');
     var data = {};
     var file = req.files.logo;
     if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
-        var knox_settings = {};
-        if (process.env.AWS_KEY && process.env.AWS_SECRET && process.env.AWS_S3_BUCKET) {
-            knox_settings.key = process.env.AWS_KEY;
-            knox_settings.secret = process.env.AWS_SECRET;
-            knox_settings.bucket = process.env.AWS_S3_BUCKET;
-        } else {
-            knox_settings = require('../knox_settings.js').settings;
-        }
         var client = knox.createClient(knox_settings);
         fs.readFile(file.path, function(err, buf) {
-            var filename = crypto.createHash('md5').update((new Date()).getTime()+file.name).digest('hex')+'.'+(path.extname(file.name));
+            var filename = crypto.createHash('md5').update((new Date()).getTime()+file.name).digest('hex')+(path.extname(file.name));
             var req = client.put('/logos/'+filename, {
                 'Content-Length': buf.length,
                 'Content-Type': file.type
             });
             req.on('response', function(s3res) {
                 if (s3res.statusCode === 200) {
-                    data.image = req.url;
+                    data.url = req.url;
+                    data.image = '/logos/'+filename;
                     res.render('upload', { layout: false, data: data });
                 }
             });
@@ -44,7 +46,7 @@ exports.upload_post = function(req, res) {
 
     } else {
         fs.unlink(file.path);
-        data.image = 'http://dummyimage.com/210x112/000/fff&text=Error';
+        data.url = 'http://dummyimage.com/210x112/000/fff&text=Error';
         res.render('upload', { layout: false, data: data });
     }
 };
@@ -75,20 +77,40 @@ exports.index = function(req, res) {
 };
 
 exports.doc = function(req, res) {
-    var path = require('path');
     var docs = db.collection('docs');
     var cursor = docs.findOne({ name: req.params.name });
-    cursor.next(function(doc) {
-        if (doc) {
+    cursor.next(function(data) {
+        if (data) {
             if (req.params.pdf === 'pdf') {
-                //doc.image = get_logo(doc.logo);
-                res.contentType('application/pdf');
-                res.end(create_pdf(doc), 'binary');
-            } else {
-                if (!doc.questions) {
-                    doc.questions = {};
+                if (data.logo) {
+                    var local = data.logo.replace('/logos', './tmp');
+                    var hreq = http.get({
+                        host: 'genexa.s3.amazonaws.com',
+                        port: 80,
+                        path: data.logo
+                    }, function(hres) {
+                        var imagedata = '';
+                        hres.setEncoding('binary');
+                        hres.on('data', function(chunk) {
+                            imagedata += chunk;
+                        });
+                        hres.on('end', function() {
+                            fs.writeFile(local, imagedata, 'binary', function(err) {
+                                if (!err) data.image = local;
+                                res.contentType('application/pdf');
+                                res.end(create_pdf(data), 'binary');
+                                if (!err && data.image) fs.unlink(data.image);
+                            });
+                        });
+                    });
+                } else {
+                    res.contentType('application/pdf');
+                    res.end(create_pdf(data), 'binary');
                 }
-                render(res, doc);
+            } else {
+                if (!data.questions) data.questions = {};
+                if (data.logo) data.logo = 'http://genexa.s3.amazonaws.com'+data.logo;
+                render(res, data);
             }
         } else {
             render(res);
@@ -97,30 +119,6 @@ exports.doc = function(req, res) {
         res.contentType('text/html');
         res.send(err.message);
     });
-};
-
-var get_logo = function(logo_url) {
-    var fs = require('fs');
-    var http = require('http');
-    var file_ext = logo_url.replace('http://genexa.s3.amazonaws.com', '');
-    var file_local = file_ext.replace('/logos', './tmp');
-    var hreq = http.get({
-        host: 'genexa.s3.amazonaws.com',
-        port: 80,
-        path: file_ext
-    }, function(hres) {
-        var imagedata = '';
-        hres.setEncoding('binary');
-        hres.on('data', function(chunk) {
-            imagedata += chunk;
-        });
-        hres.on('end', function() {
-            fs.writeFile(file_local, imagedata, 'binary', function(err) {
-                if (err) throw err;
-            });
-        });
-    });
-    return file_local;
 };
 
 exports.create = function(req, res) {
@@ -192,8 +190,7 @@ var create_pdf = function(data) {
     }
 
     if (data.image) {
-        //doc.image(data.image, 80, 72, { width: 90, height: 52 });
-        //fs.unlink(data.image);
+        doc.image(data.image, 80, 72, { width: 90, height: 52 });
     }
 
     return doc.output();

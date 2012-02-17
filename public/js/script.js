@@ -75,7 +75,7 @@ $(function() {
             'period': $.trim($('input[name=period]').val()),
             'questions': []
         };
-        if (logo.image !== '') {
+        if (logo.image) {
             data.logo = logo.image;
         }
 
@@ -217,9 +217,9 @@ $(function() {
     $('iframe.upload').load(function() {
         var data = $('iframe.upload').get(0).contentWindow.data;
         if (data) {
-            logo.image = data.image;
+            if (data.image) logo.image = data.image;
             if ($('img.logo', frames['upload'].document).attr('src') === '') {
-                $('img.logo', frames['upload'].document).attr('src', logo.image);
+                $('img.logo', frames['upload'].document).attr('src', data.url);
             }
         }
 
