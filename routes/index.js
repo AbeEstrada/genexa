@@ -19,7 +19,7 @@ exports.help = function(req, res) {
 };
 
 exports.upload_get = function(req, res) {
-    var data = { url: 'http://dummyimage.com/210x112/000/fff' };
+    var data = { url: '/img/logo.jpg' };
     res.render('upload', { layout: false, data: data });
 };
 
@@ -46,7 +46,7 @@ exports.upload_post = function(req, res) {
 
     } else {
         fs.unlink(file.path);
-        data.url = 'http://dummyimage.com/210x112/000/fff&text=Error';
+        data.url = '/img/logo-error.jpg';
         res.render('upload', { layout: false, data: data });
     }
 };

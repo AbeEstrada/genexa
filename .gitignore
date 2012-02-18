@@ -4,6 +4,7 @@
 
 tmp/*
 !tmp/tmp
+_assets/*
 node_modules
 .nodemonignore
 knox_settings.js
