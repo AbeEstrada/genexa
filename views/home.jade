@@ -36,6 +36,15 @@ form(action='.', method='post')
                 div.span2
                     button.btn.btn-primary.create Generar Exámen
                     img(src='/img/ajax-loader.gif', style='display:none')
+div.error(style='display:none')
+    div.modal
+        div.modal-header
+            a.close(data-dismiss='modal') &times;
+            h3 Error
+        div.modal-body
+            p Error
+        div.modal-footer
+            a.btn.close-modal(href='#') Cerrar
 div.newdoc(style='display:none')
     div.modal
         div.modal-header

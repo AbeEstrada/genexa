@@ -56,10 +56,16 @@ $(function() {
     });
 
     $('button.add-answer').live('click', function() {
-        var new_answer = $(this).parent().parent().clone();
-        $(new_answer).find('input').val('');
-        $(new_answer).appendTo($(this).parent().parent().parent());
-        $(this).remove();
+        var inputs = $(this).parent().parent().parent().find('input').length;
+        if (inputs <= 4) {
+            var new_answer = $(this).parent().parent().clone();
+            $(new_answer).find('input').val('');
+            $(new_answer).appendTo($(this).parent().parent().parent());
+            $(this).remove();
+        }
+        if (inputs === 4) {
+            $(new_answer).find('button.add-answer').remove();
+        }
         return false;
     });
 
@@ -86,6 +92,10 @@ $(function() {
 
         if (error) {
             $('button.create').show().siblings('img').hide();
+            $('div.error .modal-body p').text('Todos los campos del encabezado son requeridos.');
+            $('div.error').modal({
+                backdrop: true
+            });
             return false;
         }
 
@@ -128,10 +138,10 @@ $(function() {
             }, success: function(data) {
                 $('button.create').show().siblings('img').hide();
                 if (data.file) {
-                    $('.newdoc input[name=doc]').val(data.name);
-                    $('.newdoc input.link').val('http://'+data.url+'/'+data.name);
-                    $('.newdoc a.btn-primary').attr('href', 'http://'+data.url+'/'+data.file);
-                    $('.newdoc').modal({
+                    $('div.newdoc input[name=doc]').val(data.name);
+                    $('div.newdoc input.link').val('http://'+data.url+'/'+data.name);
+                    $('div.newdoc a.btn-primary').attr('href', 'http://'+data.url+'/'+data.file);
+                    $('div.newdoc').modal({
                         keyboard: false,
                         backdrop: true
                     });
@@ -143,8 +153,8 @@ $(function() {
 
     $('.newdoc a.feedback').on('click', function() {
         $('form.feedback select').removeClass('error');
-        $('.newdoc a.feedback').hide();
-        $('.newdoc img.loader').show();
+        $('div.newdoc a.feedback').hide();
+        $('div.newdoc img.loader').show();
         var error = false;
         var data = {
             'doc': $.trim($('form.feedback input[name=doc]').val()),
@@ -165,10 +175,10 @@ $(function() {
         if (data.frequency === '') { $('form.feedback select[name=frequency]').addClass('error'); error = true; }
         if (data.use === '') { $('form.feedback select[name=use]').addClass('error'); error = true; }
         if (data.easy === '') { $('form.feedback select[name=easy]').addClass('error'); error = true; }
-        //console.log(data);
+
         if (error) {
-            $('.newdoc a.feedback').show();
-            $('.newdoc img.loader').hide();
+            $('div.newdoc a.feedback').show();
+            $('div.newdoc img.loader').hide();
             return false;
         }
         $.ajax({
@@ -191,25 +201,30 @@ $(function() {
         return false;
     });
 
-    $('.newdoc a.btn-primary').on('click', function() {
+    $('div.newdoc a.btn-primary').on('click', function() {
         if (!$(this).hasClass('disabled')) {
             return true;
         }
         return false;
     });
 
-    $('.close-modal').click(function() {
+    $('div.newdoc a.close-modal').click(function() {
         $('form.feedback select').removeClass('error').removeClass('disabled').removeAttr('disabled');
-        $('.newdoc a.btn-primary').addClass('disabled');
-        $('.newdoc a.feedback').show();
-        $('.newdoc img.loader').hide();
-        $('.newdoc').modal('hide');
+        $('div.newdoc a.btn-primary').addClass('disabled');
+        $('div.newdoc a.feedback').show();
+        $('div.newdoc img.loader').hide();
+        $('div.newdoc').modal('hide');
         return false;
     });
 
-    $('.newdoc').on('hidden', function () {
-        $('.newdoc input.link').val('');
-        $('.newdoc a.btn-primary').attr('href', '#');
+    $('div.newdoc').on('hidden', function () {
+        $('div.newdoc input.link').val('');
+        $('div.newdoc a.btn-primary').attr('href', '#');
+    });
+
+    $('div.error a.close-modal').click(function() {
+        $('div.error').modal('hide');
+        return false;
     });
 
     var logo = {};
