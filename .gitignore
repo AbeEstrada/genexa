@@ -2,7 +2,6 @@
 .env
 .DS_Store
 
-tmp/*
 node_modules
 .nodemonignore
 knox_settings.js
