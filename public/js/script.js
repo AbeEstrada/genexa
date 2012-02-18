@@ -218,7 +218,7 @@ $(function() {
         var data = $('iframe.upload').get(0).contentWindow.data;
         if (data) {
             if (data.image) logo.image = data.image;
-            if ($('img.logo', frames['upload'].document).attr('src') === '') {
+            if (!$('img.logo', frames['upload'].document).attr('src')) {
                 $('img.logo', frames['upload'].document).attr('src', data.url);
             }
         }
