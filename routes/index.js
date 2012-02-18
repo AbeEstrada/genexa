@@ -26,7 +26,7 @@ exports.upload_get = function(req, res) {
 exports.upload_post = function(req, res) {
     var data = {};
     var file = req.files.logo;
-    if (file.type === 'image/jpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
+    if (file.type === 'image/jpeg' || file.type === 'image/pjpeg' || file.type === 'image/jpg' || file.type === 'image/png') {
         var client = knox.createClient(knox_settings);
         fs.readFile(file.path, function(err, buf) {
             var filename = crypto.createHash('md5').update((new Date()).getTime()+file.name).digest('hex')+(path.extname(file.name));

@@ -178,7 +178,6 @@ $(function() {
             cache: false,
             data: data,
             success: function(data) {
-                console.log(data);
                 if (data.success) {
                     $('form.feedback select').removeClass('error').addClass('disabled').attr('disabled', 'disabled');
                     $('.newdoc a.btn-primary').removeClass('disabled');
