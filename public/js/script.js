@@ -60,11 +60,11 @@ $(function() {
         if (inputs <= 4) {
             var new_answer = $(this).parent().parent().clone();
             $(new_answer).find('input').val('');
+            if (inputs === 4) {
+                $(new_answer).find('button.add-answer').remove();
+            }
             $(new_answer).appendTo($(this).parent().parent().parent());
             $(this).remove();
-        }
-        if (inputs === 4) {
-            $(new_answer).find('button.add-answer').remove();
         }
         return false;
     });

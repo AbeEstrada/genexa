@@ -48,13 +48,13 @@ div.error(style='display:none')
 div.newdoc(style='display:none')
     div.modal
         div.modal-header
-            //a.close(data-dismiss='modal') &times;
+            a.close(data-dismiss='modal') &times;
             h3 Se ha generado su exámen...
         div.modal-body
             p Puede volver a editar su documento desde la siguiente dirección:
             input.link.span6(type='text', value='')
-            div.alert.alert-error Por favor ayudanos contestando la encuesta para poder descagar el archivo PDF.
-            form.feedback.well(action='/feedback', method='post')
+            //div.alert.alert-error Por favor ayudanos contestando la encuesta para poder descagar el archivo PDF.
+            form.feedback.well(action='/feedback', method='post', style='display:none')
                 input(type='hidden', name='doc', value='')
                 div.row
                     div.span3
@@ -120,10 +120,10 @@ div.newdoc(style='display:none')
                             option(value='no') No
                             option(value='complicated') Complicado
         div.modal-footer
-            a.disabled.btn.btn-primary(href='#', target='_blank') Descargar PDF
+            a.btn.btn-primary(href='#', target='_blank') Descargar PDF
             img.loader(src='/img/ajax-loader.gif', style='display:none')
-            a.feedback.btn(href='#') Enviar encuesta
-            //a.btn.close-modal(href='#') Cerrar
+            a.disabled.feedback.btn(href='#', style='display:none') Enviar encuesta
+            a.btn.close-modal(href='#') Cerrar
 div.templates(style='display:none')
     div.question.question-open
         div.row
