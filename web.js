@@ -31,16 +31,17 @@ app.configure('production', function() {
 });
 
 
-app.post('/feedback', routes.feedback);
 app.get('/ayuda', routes.help);
+
+app.post('/feedback', routes.feedback);
 app.get('/upload', routes.upload_get);
-app.post('/upload', routes.upload_post);
+//app.post('/upload', routes.upload_post);
 
 app.get('/:name.:pdf', routes.doc);
 app.get('/:name', routes.doc);
 
 app.get('/', routes.index);
-app.post('/', routes.create);
+//app.post('/', routes.create);*/
 
 app.listen(process.env.PORT || 3000);
 console.log('Listening on port %d in %s mode', app.address().port, app.settings.env);

@@ -1,3 +1,4 @@
+include thanks
 form(action='.', method='post')
     div.row
         header.span12
@@ -34,7 +35,7 @@ form(action='.', method='post')
                 div.span2
                     button.btn.btn-success.add-question Agregar Pregunta
                 div.span2
-                    button.btn.btn-primary.create Generar Exámen
+                    button.disabled.btn.btn-primary.create Generar Exámen
                     img(src='/img/ajax-loader.gif', style='display:none')
 div.error(style='display:none')
     div.modal

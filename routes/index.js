@@ -14,6 +14,10 @@ if (process.env.AWS_KEY && process.env.AWS_SECRET && process.env.AWS_S3_BUCKET) 
     knox_settings = require('../knox_settings.js').settings;
 }
 
+exports.thanks = function(req, res) {
+    res.render('thanks');
+};
+
 exports.help = function(req, res) {
     res.render('help');
 };

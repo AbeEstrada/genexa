@@ -70,6 +70,8 @@ $(function() {
     });
 
     $('button.create').on('click', function() {
+        return false;
+
         var error = false;
         $(this).hide().siblings('img').show();
 
