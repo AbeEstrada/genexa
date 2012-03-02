@@ -8,6 +8,6 @@ html.no-js(lang='en')
     body
         form(action='/upload', target='upload', method='post', enctype='multipart/form-data')
             img.thumbnail.logo(src='', title='Logo de la Institución')
-            input(name='logo', type='file')
+            //input(name='logo', type='file')
             img.loader(src='/img/ajax-loader.gif', style='display:none')
         script var data = !{JSON.stringify(data)};
