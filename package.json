@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "express": "2.5.5",
+        "express": ">=3.11.0",
         "jade": ">= 0.0.1",
         "pdfkit": "0.1.6",
         "mongoq": "0.2.3",
